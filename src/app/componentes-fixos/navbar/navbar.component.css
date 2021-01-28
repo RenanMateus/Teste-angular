@@ -1,0 +1,11 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.navbar {
+  position: fixed;
+  width: calc(100% - 260px);
+  background-color: rgba(61, 61, 131);
+  min-height: 50px;
+  z-index: 4;
+}

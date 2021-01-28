@@ -1,0 +1,57 @@
+<h1>Operações em Binário</h1>
+<hr>
+<form #formOperacao="ngForm" style="margin-top: 20px">
+  <mat-grid-list cols="4" [rowHeight]="80">
+    <mat-grid-tile>
+      <mat-form-field class="example-full-width">
+        <mat-label>Operação</mat-label>
+        <mat-select name="operacao" [(ngModel)]="operacao.tipoOperacao" #tipoOperacao="ngModel" required>
+          <mat-option value="" selected disabled>Informe a Operação Desejada</mat-option>
+          <mat-option value="1">Soma (+)</mat-option>
+          <mat-option value="2">Subtração (-)</mat-option>
+          <mat-option value="3">Multipicação (*)</mat-option>
+          <mat-option value="4">Divisão (/)</mat-option>
+          <mat-option value="5">Resto da Divisão (%)</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="example-full-width">
+        <mat-label>Primeiro Valor</mat-label>
+        <input name="primeiroValor" pattern="^[0-1]*[0-1]" matInput placeholder="Primeiro Valor" autocomplete="off"
+          [(ngModel)]="operacao.valor1" maxlength="8"
+          (change)="operacao.valor1.length < 8 ? operacao.valor1 = operacao.valor1.padStart(8, '0') : ''"
+          #valor1="ngModel" (ngModelChange)="verificarOperacao()" required>
+      </mat-form-field>
+      <div *ngIf="valor1.touched && valor1.invalid" style="color: red;">
+        Informe um número binário
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-form-field class="example-full-width">
+        <mat-label>Segundo Valor</mat-label>
+        <input name="segundoValor" pattern="^[0-1]*[0-1]" matInput placeholder="Segundo Valor" autocomplete="off"
+          [(ngModel)]="operacao.valor2" maxlength="8" (change)="verificarOperacao()" #valor2="ngModel" required>
+      </mat-form-field>
+      <div *ngIf="valor2.touched && valor2.invalid" style="color: red;">
+        Informe um número binário
+      </div>
+      <div *ngIf="!podeRealizar" style="color: red;">
+        {{operacao.tipoOperacao == 2 ? 'O subtraendo tem que ser menor que o minuendo' : operacao.tipoOperacao == 4 ? 'O divisor tem que ser menor que o dividendo' : ''}}
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button color="primary" (click)="realizarOperacao()"
+        [disabled]="formOperacao.invalid || !podeRealizar">{{ nomeBotao(tipoOperacao.value) }}</button>
+
+      <button mat-raised-button color="accent" (click)="limparCampos()" style="margin-left: 10px;">Limpar
+        Campos</button>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-card style="text-align: center">
+    <h1>Resultado da Operação</h1>
+    <mat-card-content>
+      {{ operacao.resultado }}
+    </mat-card-content>
+  </mat-card>
+</form>

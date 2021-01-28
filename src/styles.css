@@ -1,0 +1,39 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.pagina-completa {
+  position: relative;
+  top: 0;
+  height: 100vh;
+}
+
+.content {
+  float: right;
+  width: calc(100% - 260px);
+  position: relative;
+}
+
+.mat-grid-tile .mat-figure {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: block !important;
+  padding: 0;
+}
+
+.componetes-central {
+  padding: 10px;
+  margin-top: 64px;
+  min-height: 600px;
+}

@@ -1,0 +1,39 @@
+<h1>Conjunto e seus elementos únicos</h1>
+<hr>
+<form #formConjuntos="ngForm" style="margin-top: 20px">
+  <mat-grid-list cols="4" [rowHeight]="80">
+    <mat-grid-tile>
+      <mat-form-field class="example-full-width">
+        <mat-label>Quantidade de Números</mat-label>
+        <input name="qtd" matInput type="number" placeholder="Quantidade de Números" autocomplete="off"
+          [(ngModel)]="conjunto.qtdNumeros" min="1" max="1000" (ngModelChange)="preenherVetor()" #qtdNumeros="ngModel"
+          required>
+      </mat-form-field>
+      <div *ngIf="qtdNumeros.touched && qtdNumeros.invalid" style="color: red;">
+        Informe a quantidade de números
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button color="accent" (click)="limparTudo()" style="margin-left: 10px;">Limpar Tudo</button>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <h1>Entradas</h1>
+  <mat-grid-list cols="5" [rowHeight]="80">
+    <mat-grid-tile *ngFor='let key of vetorQtdNumeros; let i = index'>
+      <mat-form-field class="example-full-width">
+        <mat-label>Número {{i+1}}</mat-label>
+        <input name="qtdEntrada{{i+1}}" matInput type="number" placeholder="Número {{i+1}}" autocomplete="off"
+          (change)="ordenacao()" [(ngModel)]="conjunto.entradas[i]" min="-1000" max="1000" required>
+      </mat-form-field>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-card style="text-align: center"
+    *ngIf="conjunto.entradas.length == vetorQtdNumeros.length && conjunto.entradas.length > 0">
+    <h1>Ordenação</h1>
+    <mat-card-content>
+      {{ mostrarSaida() }}
+    </mat-card-content>
+  </mat-card>
+</form>
